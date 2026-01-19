@@ -43,14 +43,14 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
     
-    - name: Push model to S3 with DVC
+    - name: Push model to S3 directly
       run: |
-        dvc add models/churn_model.pkl
-        dvc push
+        aws s3 cp models/churn_model.pkl s3://churn-model-demo-abhi-bucket/models/churn_model.pkl
+        echo "Model pushed to S3 successfully"
     
     - name: Update inference.yaml with S3 model path
       run: |
-        MODEL_URI="s3://$S3_BUCKET/churn-model/models/churn_model.pkl"
+        MODEL_URI="s3://churn-model-demo-abhi-bucket/models/churn_model.pkl"
         sed -i "s|storageUri: .*|storageUri: $MODEL_URI|g" k8s/inference.yaml
     
     - name: Commit updated inference.yaml
@@ -58,7 +58,5 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add k8s/inference.yaml
-        git add models/churn_model.pkl.dvc
-        git commit -m "Update model image and DVC metadata [skip ci]" || echo "No changes"
+        git commit -m "Update model S3 path [skip ci]" || echo "No changes"
         git push || echo "No changes to push"
-
