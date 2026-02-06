@@ -3,9 +3,6 @@ data/*
 
 .venv
 
-# But track DVC metadata
-!data/*.dvc
-!*.dvc
 
 # Ignore models
 models/*.pkl
