@@ -1,6 +1,17 @@
-data/
+# Ignore raw data
+data/*
+
+# But track DVC metadata
+!data/*.dvc
+!*.dvc
+
+# Ignore models
 models/*.pkl
+
+# Python junk
 *.pyc
 __pycache__/
+
+# DVC internal stuff
 .dvc/cache
 .dvc/tmp
