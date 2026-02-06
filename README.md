@@ -1,6 +1,6 @@
 # Churn Model MLOps Demo
 
-A simple demonstration of MLOps practices for a customer churn prediction model.
+A simple demonstration of MLOps practices for a customer churn prediction model.23
 
 ## What Does This Model Do?
 
