@@ -1,6 +1,8 @@
 # Ignore raw data
 data/*
 
+.venv
+
 # But track DVC metadata
 !data/*.dvc
 !*.dvc
